@@ -17,7 +17,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', enumType: ProductCode::class)]
+    #[ORM\Column(type: 'integer', enumType: ProductCode::class)]
     private $code;
 
     #[ORM\Column(type: 'string', length: 255)]

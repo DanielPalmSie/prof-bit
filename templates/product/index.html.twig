@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Product List</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th><a href="{{ path('product_list', { sort: 'code', direction: sortField == 'code' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Code</a></th>
+            <th><a href="{{ path('product_list', { sort: 'name', direction: sortField == 'name' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Name</a></th>
+            <th><a href="{{ path('product_list', { sort: 'type', direction: sortField == 'type' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Type</a></th>
+            <th><a href="{{ path('product_list', { sort: 'priceAmount', direction: sortField == 'priceAmount' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Price</a></th>
+            <th><a href="{{ path('product_list', { sort: 'currency', direction: sortField == 'currency' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Currency</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in pagination %}
+            <tr>
+                <td>{{ product.code.value }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.type.value }}</td>
+                <td>{{ (product.price.amount / 100)|number_format(2) }}</td>
+                <td>{{ product.price.currency }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
