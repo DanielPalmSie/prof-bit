@@ -8,15 +8,14 @@ RUN echo 'Acquire::http::Pipeline-Depth 0;\nAcquire::http::No-Cache true;\nAcqui
 RUN apt-get update && apt-get install -y \
     git \
     libzip-dev \
-    libpq-dev \
     libonig-dev \
+    default-mysql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install \
-    pdo_pgsql \
-    pgsql \
+    pdo_mysql \
     zip \
     pcntl \
     sockets
