@@ -35,7 +35,7 @@ class ProductController extends AbstractController
 
         $queryParams = array_merge(['sort' => $sortField],$queryParams);
 
-        $data = $this->productService->getPaginatedProducts($queryParams);
+        $data = $this->productService->getProducts($queryParams);
 
         return $this->render('product/index.html.twig', $data);
     }

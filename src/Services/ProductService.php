@@ -16,7 +16,7 @@ class ProductService
     ) {
     }
 
-    public function getPaginatedProducts(array $queryParams): array
+    public function getProducts(array $queryParams): array
     {
         $sortField = $queryParams['sort'] ?? 'id';
         $sortDirection = $queryParams['direction'] ?? 'desc';
