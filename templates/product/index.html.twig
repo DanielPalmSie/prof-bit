@@ -6,6 +6,7 @@
     <table id="productTable" class="table table-striped table-bordered">
         <thead class="thead-dark">
         <tr>
+            <th><a href="{{ path('product_list', { sort: 'id', direction: sortField == 'id' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">ID</a></th>
             <th><a href="{{ path('product_list', { sort: 'code', direction: sortField == 'code' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Code</a></th>
             <th><a href="{{ path('product_list', { sort: 'name', direction: sortField == 'name' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Name</a></th>
             <th><a href="{{ path('product_list', { sort: 'type', direction: sortField == 'type' and sortDirection == 'asc' ? 'desc' : 'asc' }) }}">Type</a></th>
@@ -16,6 +17,7 @@
         <tbody>
         {% for product in pagination %}
             <tr>
+                <td>{{ product.id }}</td>
                 <td>{{ product.code.value }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.type.value }}</td>

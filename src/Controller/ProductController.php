@@ -17,8 +17,9 @@ class ProductController extends AbstractController
     {
         $queryBuilder = $em->getRepository(Product::class)->createQueryBuilder('p');
 
+        // Получение параметров для сортировки
         $sortField = $request->query->get('sort', 'id');
-        $sortDirection = $request->query->get('direction', 'desc');
+        $sortDirection = $request->query->get('direction', 'asc');
 
         if (!in_array($sortField, ['id', 'code', 'name', 'type', 'priceAmount', 'currency'])) {
             $sortField = 'id';
