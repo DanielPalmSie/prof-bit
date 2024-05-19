@@ -22,6 +22,10 @@ class ProductController extends AbstractController
     {
         $sortField = [];
 
+        /**
+         *  Problem: Incorrect behavior of pagination library when sorting parameter is present.
+         *  Solution: Retrieve and process the sorting parameter separately, then return the processed parameters.
+         */
         $queryParams = $request->query->all();
         if (isset($queryParams['sort'])) {
             $sortField = $queryParams['sort'];
@@ -29,7 +33,9 @@ class ProductController extends AbstractController
             $request->query->replace($queryParams);
         }
 
-        $data = $this->productService->getPaginatedProducts(array_merge(['sort' => $sortField],$queryParams));
+        $queryParams = array_merge(['sort' => $sortField],$queryParams);
+
+        $data = $this->productService->getPaginatedProducts($queryParams);
 
         return $this->render('product/index.html.twig', $data);
     }

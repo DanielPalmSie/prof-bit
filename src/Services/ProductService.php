@@ -5,10 +5,11 @@ namespace App\Services;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class ProductService
 {
+    private const ITEMS_PER_PAGE = 20;
+
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly PaginatorInterface $paginator
@@ -37,7 +38,7 @@ class ProductService
         $pagination = $this->paginator->paginate(
             $query,
             (int) $page,
-            20
+            self::ITEMS_PER_PAGE
         );
 
         return [

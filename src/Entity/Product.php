@@ -15,22 +15,22 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'integer')]
-    private $code;
+    private int $code;
 
     #[ORM\Column(type: 'string')]
-    private $type;
+    private string $type;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name;
 
     #[ORM\Column(type: 'integer')]
-    private $priceAmount;
+    private int $priceAmount;
 
     #[ORM\Column(type: 'string', length: 3)]
-    private $currency;
+    private string $currency;
 
     public function getId(): ?int
     {
@@ -39,29 +39,27 @@ class Product
 
     public function getCode(): ProductCode
     {
-        // Предполагаем, что код в базе данных хранится как int
         return ProductCode::from($this->code);
     }
 
     public function setCode(ProductCode $code): self
     {
-        $this->code = $code->value; // Преобразуем объект ProductCode в его значение (int)
+        $this->code = $code->value;
         return $this;
     }
 
     public function getType(): ProductType
     {
-        // Предполагаем, что тип в базе данных хранится как строка
         return ProductType::from($this->type);
     }
 
     public function setType(ProductType $type): self
     {
-        $this->type = $type->value; // Преобразуем объект ProductType в его значение (string)
+        $this->type = $type->value;
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
