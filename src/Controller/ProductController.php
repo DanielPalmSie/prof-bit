@@ -12,10 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly PaginatorInterface $paginator,
+    ) {
+    }
+
     #[Route('/products', name: 'product_list')]
-    public function index(Request $request, PaginatorInterface $paginator, EntityManagerInterface $em): Response
+    public function index(Request $request): Response
     {
-        // Удаление параметра sort из запроса, если он вызывает проблемы
+        $sortField = [];
+
         $queryParams = $request->query->all();
         if (isset($queryParams['sort'])) {
             $sortField = $queryParams['sort'];
@@ -23,13 +30,10 @@ class ProductController extends AbstractController
             $request->query->replace($queryParams);
         }
 
-        $queryBuilder = $em->getRepository(Product::class)->createQueryBuilder('p');
-
-        // Получение параметров для сортировки
+        $queryBuilder = $this->em->getRepository(Product::class)->createQueryBuilder('p');
 
         $sortDirection = $request->query->get('direction', 'desc');
 
-        // Проверка валидности полей сортировки и направления
         if (!in_array($sortField, ['id', 'code', 'name', 'type', 'priceAmount', 'currency'])) {
             $sortField = 'id';
         }
@@ -38,11 +42,10 @@ class ProductController extends AbstractController
             $sortDirection = 'desc';
         }
 
-        // Добавление сортировки в запрос
         $queryBuilder->orderBy('p.' . $sortField, $sortDirection);
 
         $query = $queryBuilder->getQuery();
-        $pagination = $paginator->paginate(
+        $pagination = $this->paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             20 /*limit per page*/
