@@ -1,6 +1,6 @@
 .idea/
 /vendor/
 .env
-.DB_Store
-/var/
 /migrations
+/var/
+.DS_Store
