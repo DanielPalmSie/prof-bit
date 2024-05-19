@@ -15,12 +15,21 @@ class ProductController extends AbstractController
     #[Route('/products', name: 'product_list')]
     public function index(Request $request, PaginatorInterface $paginator, EntityManagerInterface $em): Response
     {
+        // Удаление параметра sort из запроса, если он вызывает проблемы
+        $queryParams = $request->query->all();
+        if (isset($queryParams['sort'])) {
+            $sortField = $queryParams['sort'];
+            unset($queryParams['sort']);
+            $request->query->replace($queryParams);
+        }
+
         $queryBuilder = $em->getRepository(Product::class)->createQueryBuilder('p');
 
         // Получение параметров для сортировки
-        $sortField = $request->query->get('sort', 'id');
-        $sortDirection = $request->query->get('direction', 'asc');
 
+        $sortDirection = $request->query->get('direction', 'desc');
+
+        // Проверка валидности полей сортировки и направления
         if (!in_array($sortField, ['id', 'code', 'name', 'type', 'priceAmount', 'currency'])) {
             $sortField = 'id';
         }
@@ -29,6 +38,7 @@ class ProductController extends AbstractController
             $sortDirection = 'desc';
         }
 
+        // Добавление сортировки в запрос
         $queryBuilder->orderBy('p.' . $sortField, $sortDirection);
 
         $query = $queryBuilder->getQuery();

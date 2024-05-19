@@ -8,4 +8,4 @@ knp_paginator:
     filter_value_name: filterValue
   template:
     pagination: 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v4_pagination.html.twig'
-    sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
+    sortable: 'bundles/KnpPaginatorBundle/Pagination/sortable_link.html.twig'

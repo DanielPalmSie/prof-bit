@@ -165,7 +165,7 @@
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
     <parameter key="knp_paginator.template.pagination">bundles/KnpPaginatorBundle/Pagination/bootstrap_v4_pagination.html.twig</parameter>
     <parameter key="knp_paginator.template.filtration">@KnpPaginator/Pagination/filtration.html.twig</parameter>
-    <parameter key="knp_paginator.template.sortable">@KnpPaginator/Pagination/sortable_link.html.twig</parameter>
+    <parameter key="knp_paginator.template.sortable">bundles/KnpPaginatorBundle/Pagination/sortable_link.html.twig</parameter>
     <parameter key="knp_paginator.page_range">5</parameter>
     <parameter key="knp_paginator.page_limit">null</parameter>
     <parameter key="twig.form.resources" type="collection">
@@ -2915,7 +2915,7 @@
       <tag name="container.hot_path"/>
       <argument type="collection">
         <argument key="defaultPaginationTemplate">bundles/KnpPaginatorBundle/Pagination/bootstrap_v4_pagination.html.twig</argument>
-        <argument key="defaultSortableTemplate">@KnpPaginator/Pagination/sortable_link.html.twig</argument>
+        <argument key="defaultSortableTemplate">bundles/KnpPaginatorBundle/Pagination/sortable_link.html.twig</argument>
         <argument key="defaultFiltrationTemplate">@KnpPaginator/Pagination/filtration.html.twig</argument>
         <argument key="defaultPageRange">5</argument>
         <argument key="defaultPageLimit">null</argument>

@@ -1,0 +1,6 @@
+{# templates/bundles/KnpPaginatorBundle/Pagination/sortable_link.html.twig #}
+{% set class = 'sortable' %}
+{% if options.currentDirection %}
+    {% set class = class ~ ' ' ~ options.currentDirection %}
+{% endif %}
+<a class="{{ class }}" href="{{ path(options.route, options.query) }}">{{ options.label|raw }}</a>
