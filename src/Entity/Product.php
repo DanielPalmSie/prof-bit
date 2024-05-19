@@ -17,14 +17,14 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'integer', enumType: ProductCode::class)]
+    #[ORM\Column(type: 'integer')]
     private $code;
+
+    #[ORM\Column(type: 'string')]
+    private $type;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
-
-    #[ORM\Column(type: 'string', enumType: ProductType::class)]
-    private $type;
 
     #[ORM\Column(type: 'integer')]
     private $priceAmount;
@@ -39,25 +39,25 @@ class Product
 
     public function getCode(): ProductCode
     {
-        return $this->code;
+        // Предполагаем, что код в базе данных хранится как int
+        return ProductCode::from($this->code);
     }
 
     public function setCode(ProductCode $code): self
     {
-        $this->code = $code;
-
+        $this->code = $code->value; // Преобразуем объект ProductCode в его значение (int)
         return $this;
     }
 
     public function getType(): ProductType
     {
-        return $this->type;
+        // Предполагаем, что тип в базе данных хранится как строка
+        return ProductType::from($this->type);
     }
 
     public function setType(ProductType $type): self
     {
-        $this->type = $type;
-
+        $this->type = $type->value; // Преобразуем объект ProductType в его значение (string)
         return $this;
     }
 
@@ -69,7 +69,6 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -82,7 +81,6 @@ class Product
     {
         $this->priceAmount = $price->getAmount();
         $this->currency = $price->getCurrency()->getCode();
-
         return $this;
     }
 }
